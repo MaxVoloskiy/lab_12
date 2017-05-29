@@ -81,7 +81,7 @@ class BigInteger:
             newOtherNode = newOther._tail
 
 
-        if self.length < other.length:
+        if self.length <= other.length:
             for item in range(diff):
                 newOther.addNode("0")
 
