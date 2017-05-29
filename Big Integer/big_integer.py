@@ -60,32 +60,57 @@ class BigInteger:
         :param other: Big Integer
         :return: sum of two Big Integers
         """
+
+        diff = abs(self.length - other.length)
         newBigInteger_temp = BigInteger()
+        newOther = BigInteger()
         newBigInteger = BigInteger()
-        currNode = self._tail
-        otherNode = other._tail
+        currNode = self._head
+        otherNode = other._head
         rem = 0
 
-        if self.length >= other.length:
-            while otherNode is not None:
-                s = int(currNode.initValue) + int(otherNode.initValue)
-                if s % 10 > 0:
-                    if (s % 10 + rem) > 10:
-                        newBigInteger_temp.addNode((s%10+rem)%10)
-                        rem += 1
-                    else:
-                        newBigInteger_temp.addNode(s%10 + rem)
-                        rem = 0
-                else:
-                    newBigInteger_temp.addNode(s%10 + rem)
-                    rem = 0
-                otherNode = otherNode.prev
-                currNode = currNode.prev
-            newBigInteger_temp = newBigInteger_temp._tail
+        if self.length > other.length:
+            for item in range(diff):
+                newOther.addNode("0")
 
-            while newBigInteger_temp is not None:
-                newBigInteger.addNode(newBigInteger_temp.initValue)
-                newBigInteger_temp = newBigInteger_temp.prev
+            while otherNode is not None:
+                newOther.addNode(otherNode.initValue)
+                otherNode = otherNode.next
+
+            otherNode = self._tail
+            newOtherNode = newOther._tail
+
+
+        if self.length < other.length:
+            for item in range(diff):
+                newOther.addNode("0")
+
+            while currNode is not None:
+                newOther.addNode(currNode.initValue)
+                currNode = currNode.next
+
+            otherNode = other._tail
+            newOtherNode = newOther._tail
+
+        while otherNode is not None:
+            s = int(otherNode.initValue) + int(newOtherNode.initValue)
+            if s % 10 > 0:
+                if (s % 10 + rem) > 10:
+                    newBigInteger_temp.addNode((s % 10 + rem) % 10)
+                    rem += 1
+                else:
+                    newBigInteger_temp.addNode(s % 10 + rem)
+                    rem = 0
+            else:
+                newBigInteger_temp.addNode(s % 10 + rem)
+                rem = 0
+            newOtherNode = newOtherNode.prev
+            otherNode = otherNode.prev
+        newBigInteger_temp = newBigInteger_temp._tail
+
+        while newBigInteger_temp is not None:
+            newBigInteger.addNode(newBigInteger_temp.initValue)
+            newBigInteger_temp = newBigInteger_temp.prev
 
         return newBigInteger.toString()
 
