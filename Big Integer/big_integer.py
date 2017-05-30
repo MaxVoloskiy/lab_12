@@ -156,7 +156,7 @@ class BigInteger:
 
         while otherNode is not None:
             s = int(otherNode.initValue) - int(newOtherNode.initValue)
-            if s > 0:
+            if s >= 0:
                 if (s % 10 + rem) > 10:
                     newBigInteger_temp.addNode((s % 10 + rem) % 10)
                     rem += 1
