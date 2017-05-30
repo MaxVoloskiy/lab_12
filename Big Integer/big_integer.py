@@ -130,7 +130,7 @@ class BigInteger:
         rem = 0
         check = False
 
-        if self.length > other.length:
+        if int(self.toString()) >= int(other.toString()):
             for item in range(diff):
                 newOther.addNode("0")
 
@@ -156,7 +156,7 @@ class BigInteger:
 
         while otherNode is not None:
             s = int(otherNode.initValue) - int(newOtherNode.initValue)
-            if s % 10 > 0:
+            if s > 0:
                 if (s % 10 + rem) > 10:
                     newBigInteger_temp.addNode((s % 10 + rem) % 10)
                     rem += 1
@@ -165,7 +165,7 @@ class BigInteger:
                     rem = 0
             else:
                 newBigInteger_temp.addNode(s % 10 + rem)
-                rem = 0
+                rem += 1
             newOtherNode = newOtherNode.prev
             otherNode = otherNode.prev
         newBigInteger_temp = newBigInteger_temp._tail
